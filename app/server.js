@@ -1,6 +1,8 @@
 const express = require("express")
 const cors =require("cors")
-const authRouter = require("../app/routers/auth.router")
+const authRouter = require("../app/routers/auth.route")
+const productRouter = require("../app/routers/product.route")
+
 const app = express()
 const PORT = process.env.PORT || 2023
 
@@ -61,7 +63,9 @@ db.mongoose.connect(db.url,{
 app.use(express.json())  // body-parser
 
 
-  app.use("/app", authRouter)
+app.use("/app", authRouter)
+app.use("/product", productRouter)
+
 
 
 app.get("/" ,(req ,res) =>{

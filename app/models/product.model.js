@@ -2,17 +2,17 @@
 
 const mongoose = require("mongoose");
 
-const User = mongoose.model(
+const Product = mongoose.model(
     "Product",
     new mongoose.Schema({
-        productName : String,
+        title : String,
         image: String,
-        prouductDescription:String,
-        productCatgory:String,
-        price:String,
+        description:String,
+        catgory:String,
+        price:Number,
         conduction:String,
-        quantity:String,
-        businesId:[
+        quantity:Number,
+        business:[
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User"
@@ -22,3 +22,5 @@ const User = mongoose.model(
     })
 
 )
+
+module.exports = Product
