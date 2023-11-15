@@ -3,13 +3,15 @@ const User = db.user
 const Product = db.product
 exports.createProduct = async (req, res)=>{
     const  businessId = req.params.id
-    const { title, price,description, conduction,catgory, image, quantity} =req.body
     const business = await User.findById(businessId);
-    if (!business) {
-        return res.status(404).json({ message: ' not found' });
+        if (!business) {
+        return res.status(404).json({ message: 'not found' });
     }
-    // author: authorId,
-    const newProduct = new Product({
+    const { title, price,description, conduction,catgory, image, quantity} =req.body
+    
+
+
+    const newProduct = await new Product({
         business:businessId,
         title,
         price,
