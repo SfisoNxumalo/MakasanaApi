@@ -9,6 +9,7 @@ db.mongoose = mongoose
 db.user = require("./user.model")
 db.role = require("./role.model")
 db.product = require("./product.model")
+db.orders = require('./order.model')
 
 db.url = dbConfig.url
 
