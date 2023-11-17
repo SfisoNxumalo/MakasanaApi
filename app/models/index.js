@@ -10,6 +10,7 @@ db.user = require("./user.model")
 db.role = require("./role.model")
 db.product = require("./product.model")
 db.cart   = require("./cart.model")
+db.orders = require('./order.model')
 
 db.url = dbConfig.url
 
