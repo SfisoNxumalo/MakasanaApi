@@ -7,12 +7,13 @@ const Role = db.role
 
 
 exports.signup =(req, res)=>{
-    const { username, industry, email, address, phoneNumber} =req.body
+    const { username, image,industry, email, address, phoneNumber} =req.body
     const user = new User({
         username,
         email,
         industry,
         phoneNumber,
+        image,
         address,
         password: bcrypt.hashSync(req.body.password, 8)
     });
