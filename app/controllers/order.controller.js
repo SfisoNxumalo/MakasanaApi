@@ -6,7 +6,7 @@ const Order = db.order
 exports.createOrder = async (req, res)=>{
 
 
-    //add Cart Id later to get user cart
+  
     const  businessId = req.params.id;
     const userId = req.params.id;
     businessId = await User.findById(businessId);
@@ -25,7 +25,7 @@ exports.createOrder = async (req, res)=>{
 
     const newOrder = await new Order({
 
-        //cartId
+        cartId,
         businessId,
         userId,
         price,
@@ -33,7 +33,7 @@ exports.createOrder = async (req, res)=>{
         orderStatus,
         contactNumber
     });
-    const savedOrder= await newOrder.save();
+    const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
 }
 

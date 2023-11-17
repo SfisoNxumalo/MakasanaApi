@@ -21,12 +21,12 @@ const Order = mongoose.model(
                 ref: "User"
             }
         ],
-        // cartId:[
-        //     {
-        //         type: mongoose.Schema.Types.ObjectId,
-        //         ref: "User"
-        //     }
-        // ],
+        cartId:[
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            }
+        ]
 
 
 
