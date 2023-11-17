@@ -2,6 +2,8 @@ const express = require("express")
 const cors =require("cors")
 const authRouter = require("../app/routers/auth.route")
 const productRouter = require("../app/routers/product.route")
+const orderRouter = require("../app/routers/order.route")
+
 
 const app = express()
 const PORT = process.env.PORT || 2023
@@ -65,6 +67,7 @@ app.use(express.json())  // body-parser
 
 app.use("/app", authRouter)
 app.use("/product", productRouter)
+app.use("/order", orderRouter)
 
 
 
