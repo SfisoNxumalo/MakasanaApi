@@ -12,15 +12,8 @@ const Product = mongoose.model(
         price:Number,
         conduction:String,
         quantity:Number,
-        business:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ]
-
+        business:{type: mongoose.Schema.Types.ObjectId, ref: "User"}
     })
-
 )
 
 module.exports = Product
