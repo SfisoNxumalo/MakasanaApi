@@ -6,7 +6,7 @@ router.post("/create",controllers.createCart)
 router.get("/getById/:id",controllers.findOne)
 router.get("/getAll/",controllers.findAll)
 
-// router.put("/update/:id",controllers.updateOne)
+router.put("/update/:id",controllers.updateOne)
 // router.get("/findAll/:id",controllers.BusinessProduct)
 
 
