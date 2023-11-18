@@ -1,44 +1,27 @@
 const config = require("../db/auth.config")
-const db = require("../models")
-const User = db.user
 var jwt = require("jsonwebtoken")
-var bcrypt = require("bcryptjs")
-const Role = db.role
+var bcrypt = require("bcryptjs");
+const Customer = require("../models/customer");
 
 
-exports.signup =(req, res)=>{
-    const { username, industry, email, address, phoneNumber} =req.body
-    const user = new User({
-        username,
+exports.signup = (req, res) =>
+{
+    const { name, email, address, phone} = req.body;
+    
+    const user = new Customer({
+        name,
         email,
-        industry,
-        phoneNumber,
+        phone,
         address,
         password: bcrypt.hashSync(req.body.password, 8)
     });
-    user.save()
-        .then(savedUser => {
-            if (req.body.roles) {
-                return Role.find({ name: { $in: req.body.roles } });
-            } else {
-                return Role.findOne({ name: "user" });
-            }
-        })
-        .then(roles => {
-            if (roles) {
-                user.roles = roles.map(role => role._id);
-            } else {
-                user.roles = [roles._id];
-            }
-    
-            return user.save();
-        })
-        .then(() => {
-            res.send({ message: "User was registered successfully!" });
-        })
-        .catch(err => {
-            res.status(500).send({ message: err.message || "Some error occurred while saving the user." });
-        });
+
+    user.save().then(message => {
+        res.status(200).json("Account Created");
+
+    }).catch(err => {
+        res.status(300).json(err);
+    })
     
 };
 

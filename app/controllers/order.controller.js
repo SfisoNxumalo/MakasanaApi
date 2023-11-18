@@ -1,4 +1,4 @@
-const db = require("../models/index")
+const db = require("../index")
 const User = db.user
 const Order = db.order
 

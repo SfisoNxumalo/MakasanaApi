@@ -1,10 +1,6 @@
-// app.js
-require('dotenv').config();
-
-// Accessing environment variables
-const dbHost = process.env.MONGO_URI;
 
 
 module.exports ={
-    url : dbHost
+    MONGO_URI : "mongodb://localhost:27017",
+    port: 2024
  }
