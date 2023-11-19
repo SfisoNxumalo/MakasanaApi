@@ -4,7 +4,8 @@ const dotenv = require('dotenv').config();
 
 // const authRouter = require("../app/routers/auth.route")
 // const productRouter = require("../app/routers/product.route")
-const AllRoutes = require("../app/routers/routes")
+const AllRoutes = require("./routes/routes")
+const AuthRoutes = require("./routes/auth_routes")
 
 const db = require("./db/db.config");
 const connectDB = require("./db/connect_db");
@@ -21,6 +22,7 @@ const port = process.env.PORT || db.port
 app.use(express.json())
 
 app.use("/makasana-api", AllRoutes)
+app.use("/makasana-api/auth", AuthRoutes)
 
 // app.get("/makasana-api/" ,(req ,res) =>{
 //     res.json({message: req.body})

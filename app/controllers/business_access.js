@@ -1,35 +1,51 @@
 const config = require("../db/auth.config")
-var jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 var bcrypt = require("bcryptjs");
 const Business = require("../models/business");
 
 
 exports.signup = (req, res) =>
 {
-    const { name, industry, email, address, phone} = req.body;
+    const { name, industry, email, address, phone, password} = req.body;
+
+    if(!name || !industry || !email || !address || !phone || !password){
+        return res.send(400).json({message: "Missing values"})
+    }
+
+   Business.findOne({email}).then((userFound) => {
+    if(!userFound){
+        const user = new Business({
+            name,
+            email,
+            industry,
+            phone,
+            address,
+            password: bcrypt.hashSync(req.body.password, 8)
+        });
     
-    const user = new Business({
-        name,
-        email,
-        industry,
-        phone,
-        address,
-        password: bcrypt.hashSync(req.body.password, 8)
-    });
-
-    user.save().then(message => {
-        res.status(201).json("Account Created");
-
-    }).catch(err => {
-        res.status(300).json(err);
-    })
+        user.save().then(message => {
+            res.status(201).json({message:"Account Created"});
+    
+        }).catch(err => {
+            res.status(300).json(err);
+        })
+    }
+    else{
+        res.status(400).json({message: "Email address already in use"})
+    }
+   })
     
 };
 
 exports.signin = (req, res) => {
-    Business.findOne({
-        email: req.body.email
-    })
+
+    const { email, password} = req.body;
+
+    if( !email || !password){
+        return res.send(400).json({message: "Missing values"})
+    }
+
+    Business.findOne({email})
     .then(user => {
         if (!user) {
             return res.status(401).send({ message: "User Not found" });
@@ -47,7 +63,7 @@ exports.signin = (req, res) => {
             const token = jwt.sign(
                 { id: user.id },
                 config.secret,
-                { expiresIn: 86400 } // 24 hours
+                { expiresIn: "5h" } // 24 hours
             );
 
             res.status(200).send({
@@ -67,5 +83,7 @@ exports.signin = (req, res) => {
 };
 
 function mCheckEmailExists(email){
+
+
 
 }

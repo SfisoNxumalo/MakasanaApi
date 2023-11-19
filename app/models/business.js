@@ -17,7 +17,8 @@ const Business = mongoose.model(
         email: {
             type:String, 
             required: true,
-            lowercase:true 
+            lowercase:true,
+            unique:true
         },
         address:{
             type:String, 
