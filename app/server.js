@@ -63,6 +63,7 @@ app.listen(port,()=>{
     });
 
   }
+});
 
 app.use(express.json())  // body-parser
 
