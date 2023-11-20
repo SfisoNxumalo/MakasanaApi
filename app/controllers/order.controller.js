@@ -1,39 +1,33 @@
 const db = require("../index")
+const Cart = require("../models/cart.model");
+const db = require("../models/index")
 const User = db.user
-const Order = db.order
+const Order = db.orders
 
 
 exports.createOrder = async (req, res)=>{
 
 
-    //add Cart Id later to get user cart
-    const  businessId = req.params.id;
-    const userId = req.params.id;
-    businessId = await User.findById(businessId);
-        if (!businessId) {
-        return res.status(404).json({ message: 'Business not found' });
-    }
+  
+    const  cartId = req.params.id;
 
-
-    userId = await User.findById(userId);
-        if (!userId) {
-        return res.status(404).json({ message: 'User not found' });
+    const cart = await Cart.findById(cartId);
+        if (!cart) {
+        return res.status(404).json({ message: 'Cart not found' });
     }
-    const { price, orderStatus , contactNumber, quantity} = req.body
+    const { businessId, userId, productId, orderStatus} = req.body
     
 
 
     const newOrder = await new Order({
 
-        //cartId
+        cart : cartId,
         businessId,
+        productId,
         userId,
-        price,
-        quantity,
-        orderStatus,
-        contactNumber
+        orderStatus
     });
-    const savedOrder= await newOrder.save();
+    const savedOrder = await newOrder.save();
     res.status(201).json(savedOrder);
 }
 

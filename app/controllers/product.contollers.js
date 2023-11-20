@@ -150,3 +150,25 @@ exports.findOne = (req, res) =>
         });
       });
 };
+
+
+exports.BusinessProduct = (req,res)=>{
+  const business = req.params.id;
+ 
+  var condition = business ? { business: { $regex: new RegExp(business), $options: "i" } } : {};
+ 
+  Product.find({business})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving posts."
+      });
+    });
+};
+  
+
+
+
