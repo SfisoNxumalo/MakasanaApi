@@ -19,7 +19,7 @@ exports.ViewCateProducts = async (req, res) => {
 
   exports.ViewOneProduct = async (req, res) => {
     // const businessId = req.business;
-    // const id = req.params.id;
+    const id = req.params.id;
   
     // const business = await Business.findById(businessId);
   

@@ -1,6 +1,6 @@
 
-const BusinessController = require("../controllers/business_access")
-const CustomerController = require("../controllers/customer_access")
+const BusinessController = require("../controllers/business_auth_controller")
+const CustomerController = require("../controllers/customer_auth_controller")
 
 const express = require("express");
 const router = express.Router();

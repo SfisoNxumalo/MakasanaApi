@@ -10,11 +10,23 @@ const Product = mongoose.model(
             required: true,
             minLength: 2
         },
-        image: String,
-        description:String,
-        category:String,
+        image: {
+            type:String,
+            lowercase:true
+        },
+        description:{
+            type:String,
+            lowercase:true
+        },
+        category:{
+            type:String,
+            lowercase:true
+        },
         price:Number,
-        condition:String,
+        condition:{
+            type:String,
+            lowercase:true
+        },
         quantity:Number,
        
         promo :{

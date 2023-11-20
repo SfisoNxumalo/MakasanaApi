@@ -18,13 +18,13 @@ exports.createProduct = async (req, res) =>
     const business = await Business.findById(businessId);
 
         if (!business) {
-        return res.status(404).json({ message: 'not found' });
+        return res.status(403).json({ message: 'not found' });
     }
 
     const {title, price, description, condition, category, image, quantity, promo} = req.body;
 
     if(!title || !price || !description || !condition || !category || !image || !quantity){
-      return res.status(400).json({message: price})
+      return res.status(206).json({message: price})
     }
     
     const newProduct = new Product({
