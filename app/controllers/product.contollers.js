@@ -126,10 +126,10 @@ exports.findOne = (req, res) =>
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    const {title, price, description, conduction, catgory, image, quantity, promo} = req.body;
+    const {title, price, description, condition, category, image, quantity, promo} = req.body;
 
-    if(!title || !price || !description || !conduction || !catgory || !image || !quantity || !id){
-      res.status(400).json({message: "Missing values"})
+    if(!title || !price || !description || !condition || !category || !image || !quantity || !id){
+     return res.status(400).json({message: "Missing values"})
     }
 
     // const product = Product.findById(id)
@@ -137,15 +137,15 @@ exports.findOne = (req, res) =>
     Product.findByIdAndUpdate(id, req.body, { useFindAndModify: true})
       .then(data => {
         if (!data) {
-          res.status(404).send({
+         return res.status(404).send({
             message: `Cannot update Post with id=${id}. Maybe Post was not created!`
           });
-        } else res.send({ 
+        } else return res.send({ 
           message: "Product was updated successfully." 
         });
       })
       .catch(err => {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Error updating the Post with id=" + id
         });
       });

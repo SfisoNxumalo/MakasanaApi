@@ -1,22 +1,26 @@
 const orderController = require("../controllers/order.controller")
-const ProductController = require("../controllers/product.contollers")
+const BusProductController = require("../controllers/product.contollers")
 const validateToken = require("../middleware/ValidateToken");
+const CusProductCon = require("../controllers/user-products-controller")
 
 const express = require("express")
 const router = express.Router();
 
 //  Business Products routes
-// router.use(validateToken)
-// router.get("/products", validateToken, ProductController.GetBusinessProducts)
-router.get("/my-products", validateToken, ProductController.ViewMyProducts)
-router.get("/view-product/:id", validateToken, ProductController.ViewOneProduct)
-router.post("/create-product", validateToken, ProductController.createProduct)
-// router.get("/getById/:id",validateToken, ProductController.findOne)
-router.put("/update/:id", validateToken, ProductController.updateOne)
+router.get("/business/my-products", validateToken, BusProductController.ViewMyProducts)
+router.get("/business/view-product/:id", validateToken, BusProductController.ViewOneProduct)
+router.post("/business/create-product", validateToken, BusProductController.createProduct)
+router.put("/business/update/:id", validateToken, BusProductController.updateOne)
+
+// User products
+router.get("/products/:category", CusProductCon.ViewCateProducts)
+router.get("/products/:category/:id", CusProductCon.ViewOneProduct)
 
 // 
 router.post("/createOrder/:id", validateToken, orderController.createOrder)
 router.get("/getOrder/:id", validateToken, orderController.findOneOrder)
 router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
+
+
 
 module.exports = router;

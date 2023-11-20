@@ -24,14 +24,14 @@ exports.signup = (req, res) =>
         });
     
         user.save().then(message => {
-            res.status(201).json({message:"Account Created"});
+            return res.status(201).json({message:"Account Created"});
     
         }).catch(err => {
-            res.status(300).json(err);
+            return res.status(300).json(err);
         })
     }
     else{
-        res.status(400).json({message: "Email address already in use"})
+        return res.status(400).json({message: "Email address already in use"})
     }
    })
     
@@ -68,9 +68,9 @@ exports.signin = (req, res) => {
 
             res.status(200).send({
                 id: user._id,
-                username: user.username,
+                username: user.name,
                 email: user.email,
-                roles: user.roles,
+                role: user.role,
                 image: user.image,
                 phone: user.phone,
                 address: user.address,
