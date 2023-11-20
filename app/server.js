@@ -62,8 +62,8 @@ app.use("/makasana-api/auth", AuthRoutes)
 //         console.log("Error:", err);
 //     });
 
-  }
-});
+//   }
+// });
 
 app.use(express.json())  // body-parser
 
