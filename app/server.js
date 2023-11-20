@@ -7,7 +7,7 @@ const dotenv = require('dotenv').config();
 const AllRoutes = require("./routes/routes")
 const AuthRoutes = require("./routes/auth_routes")
 
-const db = require("./db/db.config");
+// const db = require("./db/db.config");
 const connectDB = require("./db/connect_db");
 
 connectDB();
@@ -29,47 +29,49 @@ app.use("/makasana-api/auth", AuthRoutes)
 //     res.json({message: req.body})
 // })
 
-app.listen(port,()=>{
-    console.log(`Server is running on port ${port}`)
-  function initial() {
-    Role.estimatedDocumentCount()
-    .then(count => {
-        if (count === 0) {
-            // Create 'user' role
-            new Role({
-                name: "user"
-            }).save()
-                .then(() => {
-                    console.log("Added 'user' to roles collection");
-                })
-                .catch(err => {
-                    console.log("Error:", err);
-                });
+// app.listen(port,()=>{
+//     console.log(`Server is running on port ${port}`)
+//   function initial() {
+//     Role.estimatedDocumentCount()
+//     .then(count => {
+//         if (count === 0) {
+//             // Create 'user' role
+//             new Role({
+//                 name: "user"
+//             }).save()
+//                 .then(() => {
+//                     console.log("Added 'user' to roles collection");
+//                 })
+//                 .catch(err => {
+//                     console.log("Error:", err);
+//                 });
 
-            // Create 'admin' role
-            new Role({
-                name: "business"
-            }).save()
-                .then(() => {
-                    console.log("Added 'business' to roles collection");
-                })
-                .catch(err => {
-                    console.log("Error:", err);
-                });
-        }
-    })
-    .catch(err => {
-        console.log("Error:", err);
-    });
+//             // Create 'admin' role
+//             new Role({
+//                 name: "business"
+//             }).save()
+//                 .then(() => {
+//                     console.log("Added 'business' to roles collection");
+//                 })
+//                 .catch(err => {
+//                     console.log("Error:", err);
+//                 });
+//         }
+//     })
+//     .catch(err => {
+//         console.log("Error:", err);
+//     });
 
-  }
+//   }
+
+// });
 
 app.use(express.json())  // body-parser
 
 
-app.use("/app", authRouter)
-app.use("/product", productRouter)
-app.use("/order", orderRouter)
+// app.use("/app", authRouter)
+// app.use("/product", productRouter)
+// app.use("/order", orderRouter)
 
 
 
@@ -77,6 +79,6 @@ app.get("/" ,(req ,res) =>{
     res.json({message:"Welcome to makasana application"})
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on port ${PORT}`)
+app.listen(port,()=>{
+    console.log(`Server is running on port ${port}`)
 })

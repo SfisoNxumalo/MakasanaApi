@@ -1,5 +1,5 @@
-const orderController = require("../controllers/order.controller")
-const BusProductController = require("../controllers/product.contollers")
+// const orderController = require("../controllers/order.controller")
+const BusProductController = require("../controllers/product_contollers")
 const validateToken = require("../middleware/ValidateToken");
 const CusProductCon = require("../controllers/user-products-controller")
 
@@ -17,10 +17,8 @@ router.get("/products/:category", CusProductCon.ViewCateProducts)
 router.get("/products/:category/:id", CusProductCon.ViewOneProduct)
 
 // 
-router.post("/createOrder/:id", validateToken, orderController.createOrder)
-router.get("/getOrder/:id", validateToken, orderController.findOneOrder)
-router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
-
-
+// router.post("/createOrder/:id", validateToken, orderController.createOrder)
+// router.get("/getOrder/:id", validateToken, orderController.findOneOrder)
+// router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
 
 module.exports = router;
