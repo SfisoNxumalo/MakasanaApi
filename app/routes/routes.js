@@ -1,4 +1,4 @@
-// const orderController = require("../controllers/order.controller")
+const orderController = require("../controllers/order.controller")
 const BusProductController = require("../controllers/product_contollers")
 const validateToken = require("../middleware/ValidateToken");
 const CusProductCon = require("../controllers/user-products-controller")
@@ -17,7 +17,7 @@ router.get("/products/:category", validateToken, CusProductCon.ViewCateProducts)
 router.get("/products/:category/:id", validateToken,CusProductCon.ViewOneProduct)
 
 // 
-// router.post("/createOrder/:id", validateToken, orderController.createOrder)
+router.post("/createOrder", validateToken, orderController.SaveOrder)
 // router.get("/getOrder/:id", validateToken, orderController.findOneOrder)
 // router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
 

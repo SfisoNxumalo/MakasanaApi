@@ -5,6 +5,10 @@
 // const Order = db.orders
 
 const Order = require("../models/order")
+const Business = require("../models/business")
+const Product = require("../models/product")
+const User = require("../models/customer")
+
 
 exports.SaveOrder = async (req, res) => {
 
@@ -16,9 +20,15 @@ exports.SaveOrder = async (req, res) => {
       return res.status(404).json({ message: 'not found' });
     }
 
-    const order = new Order({
+    const orderDetails = req.body
 
-    });
+    console.log(typeof(orderDetails))
+
+    // const order = new Order({
+
+    // });
+
+    return res.send("done")
 
 
 
