@@ -1,39 +1,17 @@
-
 const mongoose = require("mongoose");
 
 const Order = mongoose.model(
-    "Order",
+    "Orders",
     new mongoose.Schema({
-        orderStatus:String,
-        businessId:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
-        productId:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
-        
-
-        userId:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ],
-        cartId:[
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "User"
-            }
-        ]
-
-
-
+        orderNo:String,
+        business: { type: mongoose.Schema.Types.ObjectId, ref: "Business"},
+        User: { type: mongoose.Schema.Types.ObjectId, ref: "User"},
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product"},
+        title : String,
+        price:Number,
+        orderId:String,
+        processed:String,
+        quantity:Number
     })
 
 )

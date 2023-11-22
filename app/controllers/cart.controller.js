@@ -1,15 +1,18 @@
-const db = require("../models/index")
-const Cart = db.cart
-const User = db.user
-
+const Product = require("../models/product")
+const User = require("../models/customer")
+const Cart = require("../models/cart.model")
 
 exports.createCart = async (req, res)=>{
-    // const  businessId = req.params.id
-    // const business = await User.findById(businessId);
-    //     if (!business) {
-    //     return res.status(404).json({ message: 'Not found ' });
-    // }
-    const {title, price,catgory, image} =req.body
+
+  const customerId = req.business;
+  
+    const customer = await User.findById(customerId);
+  
+    if (!customer) {
+      return res.status(404).json({ message: 'not found' });
+    }
+
+    const {title, price,catgory, image} = req.body
     
    const newCart = await new Cart({
     title,

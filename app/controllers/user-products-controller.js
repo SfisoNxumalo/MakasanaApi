@@ -1,17 +1,22 @@
 const Product = require("../models/product")
+const User = require("../models/customer")
 
 exports.ViewCateProducts = async (req, res) => {
-    // const UserId = req.user;
+    const customerId = req.business;
   
-    // const business = await Business.findById(businessId);
+    const customer = await User.findById(customerId);
   
-    // if (!business) {
-    //   return res.status(404).json({ message: 'not found' });
-    // }
+    if (!customer) {
+      return res.status(404).json({ message: 'not found' });
+    }
 
     const category = req.params.category;
   
     const product = await Product.find({category:category})
+
+    if(!product){
+      return res.status(200).json({message: "Invalid"})
+    }
   
       res.status(200).json(product);
     

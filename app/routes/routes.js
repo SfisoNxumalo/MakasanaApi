@@ -13,8 +13,8 @@ router.post("/business/create-product", validateToken, BusProductController.crea
 router.put("/business/update/:id", validateToken, BusProductController.updateOne)
 
 // User products
-router.get("/products/:category", CusProductCon.ViewCateProducts)
-router.get("/products/:category/:id", CusProductCon.ViewOneProduct)
+router.get("/products/:category", validateToken, CusProductCon.ViewCateProducts)
+router.get("/products/:category/:id", validateToken,CusProductCon.ViewOneProduct)
 
 // 
 // router.post("/createOrder/:id", validateToken, orderController.createOrder)

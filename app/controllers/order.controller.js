@@ -4,6 +4,27 @@
 // const User = db.user
 // const Order = db.orders
 
+const Order = require("../models/order")
+
+exports.SaveOrder = async (req, res) => {
+
+    const customerId = req.business;
+  
+    const customer = await User.findById(customerId);
+  
+    if (!customer) {
+      return res.status(404).json({ message: 'not found' });
+    }
+
+    const order = new Order({
+
+    });
+
+
+
+
+}
+
 
 // exports.createOrder = async (req, res)=>{
 
