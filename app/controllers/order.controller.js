@@ -68,7 +68,6 @@ exports.SaveOrder = async (req, res) => {
         if(!NotiForBusiness.includes(business)){
           NotiForBusiness.push(business)
         }
-        
       })
       .catch((err) => {
         console.log("failed to save", order.title)
@@ -83,7 +82,6 @@ exports.SaveOrder = async (req, res) => {
                 message:"You have received a new order",
                 business: thebusiness, 
                 viewed: false,
-
             });
 
             await NewNotification.save();
@@ -112,9 +110,27 @@ exports.ViewOrders = async(req, res) => {
     }
   
     res.status(200).json({message: orders});
+}
 
+exports.ViewBusinessOrders = async(req, res) => {
 
+  const businessId = req.business;
 
+  const business = await User.findById(businessId);
+  
+    if (!business) {
+      return res.status(404).json({ message: 'not found' });
+    }
+
+    // const category = req.params.category;
+  
+    const orders = await Order.find({business:businessId})
+
+    if(!orders){
+      return res.status(200).json({message: "Invalid"})
+    }
+  
+    res.status(200).json({message: orders});
 }
 
 

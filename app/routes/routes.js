@@ -19,6 +19,6 @@ router.get("/products/:category/:id", validateToken,CusProductCon.ViewOneProduct
 // user orders
 router.post("/createOrder", validateToken, orderController.SaveOrder)
 router.get("/view-orders", validateToken, orderController.ViewOrders)
-// router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
+router.get("/business/view-orders", validateToken, orderController.ViewBusinessOrders)
 
 module.exports = router;
