@@ -16,9 +16,9 @@ router.put("/business/update/:id", validateToken, BusProductController.updateOne
 router.get("/products/:category", validateToken, CusProductCon.ViewCateProducts)
 router.get("/products/:category/:id", validateToken,CusProductCon.ViewOneProduct)
 
-// 
+// user orders
 router.post("/createOrder", validateToken, orderController.SaveOrder)
-// router.get("/getOrder/:id", validateToken, orderController.findOneOrder)
+router.get("/view-orders", validateToken, orderController.ViewOrders)
 // router.put("/updateOrder/:id", validateToken, orderController.updateOneOrder)
 
 module.exports = router;

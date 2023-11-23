@@ -9,9 +9,13 @@ const Order = mongoose.model(
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product"},
         title : String,
         price:Number,
-        orderId:String,
-        processed:String,
-        quantity:Number
+        order_status:String,
+        quantity:Number,
+        date:{
+            type:Date, 
+            required: true,
+            default: () => new Date()
+        }
     })
 
 )
