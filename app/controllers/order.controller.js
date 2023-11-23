@@ -20,15 +20,18 @@ exports.SaveOrder = async (req, res) => {
       return res.status(404).json({ message: 'not found' });
     }
 
-    const orderDetails = req.body
+    const orderDetails = req.body.orders
 
-    console.log(typeof(orderDetails))
+    for(order of orderDetails){
+      console.log(order.title)
+    }
+    
 
     // const order = new Order({
 
     // });
 
-    return res.send("done")
+    return res.status(200).json("done")
 
 
 
