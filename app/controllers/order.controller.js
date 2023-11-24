@@ -98,7 +98,7 @@ exports.ViewOrders = async(req, res) => {
   const customer = await User.findById(customerId);
   
     if (!customer) {
-      return res.status(404).json({ message: 'not found' });
+      return res.status(401).json({ message: 'unath' });
     }
 
     // const category = req.params.category;
@@ -116,10 +116,10 @@ exports.ViewBusinessOrders = async(req, res) => {
 
   const businessId = req.business;
 
-  const business = await User.findById(businessId);
+  const business = await Business.findById(businessId);
   
     if (!business) {
-      return res.status(404).json({ message: 'not found' });
+      return res.status(401).json({ message: 'not found' });
     }
 
     // const category = req.params.category;
