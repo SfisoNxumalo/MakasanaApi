@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
-const dotenv = require('dotenv').config();
+require('dotenv').config();
+const fileUpload = require('express-fileupload')
 
 // const authRouter = require("../app/routers/auth.route")
 // const productRouter = require("../app/routers/product.route")
@@ -17,10 +18,14 @@ const app = express()
 
 app.use(cors());
 app.use(express.json())
+app.use(fileUpload())
 
 const port = process.env.PORT || db.port
 
-app.use(express.json())
+app.use(express.json({
+    extended: true,
+    limit:'50mb'
+}))
 
 app.use("/makasana-api", AllRoutes)
 app.use("/makasana-api/auth", AuthRoutes)

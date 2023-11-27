@@ -3,6 +3,8 @@
 // const User = db.user
 // const Product = db.product
 
+const imageUploader = require("../controllers/Image-upload")
+
 const Business = require("../models/business")
 const Product = require("../models/product")
 
@@ -13,42 +15,50 @@ exports.GetBusinessProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => 
 {
+  
     const businessId = req.business;
 
     const business = await Business.findById(businessId);
 
-        if (!business) {
+    if (!business) {
         return res.status(403).json({ message: 'not found' });
     }
 
-    const {title, price, description, condition, category, image, quantity, promo} = req.body;
+    const {title, price, description, condition, category, quantity, promo} = req.body;
 
-    if(!title || !price || !description || !condition || !category || !image || !quantity){
-      return res.status(206).json({message: price})
+   
+    if(!title || !price || !description || !condition || !category || !quantity){
+      return res.status(402).json({message: "MISSING"})
     }
+
+    // console.log(req.body.title)
+    // console.log(req.files.image)
+
+    const ImageLink = await imageUploader.UploadImage(req.files.image);
+
+    // console.log(ImageLink.Location)
+    // console.log(req.files.image)
     
     const newProduct = new Product({
         business:businessId,
         title,
-        price,
-        image,
+        price:Number(price), 
+        image:String(ImageLink.Location),
         description,
         category,
         condition,
-        quantity,
-        promo
+        quantity:Number(quantity),
+        promo:JSON.parse(promo)
     });
 
     const savedProduct = await newProduct.save();
-
+    
     if(savedProduct){
       return res.status(201).json({message:"Saved"});
     }
     else{
       return res.status(201).json({message:"Failed to save"});
     }
-
-    
 }
 
 exports.ViewMyProducts = async (req, res) => {

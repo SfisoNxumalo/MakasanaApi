@@ -11,7 +11,7 @@ const validateToken = (async (req, res, next) =>{
 
         jwt.verify(token, config.secret, (error, decoded) => {
             if(error){
-                return res.status(401).json({message:"Access Denied!"});
+                return res.status(401).json({message:error});
             }
 
             req.business = decoded.id

@@ -62,9 +62,16 @@ exports.SaveOrder = async (req, res) => {
         order_status,
         quantity
       });
+ 
+      await order.save().then(async() => {
 
-      await order.save().then(() => {
-        console.log("Saved", order.title)
+      
+      const pro = await Product.find({_id:productId});
+
+      const newQuantiy = pro[0].quantity - quantity;
+
+      await Product.findByIdAndUpdate(productId, {quantity:newQuantiy}, { useFindAndModify: true})
+
         if(!NotiForBusiness.includes(business)){
           NotiForBusiness.push(business)
         }

@@ -2,6 +2,7 @@ const orderController = require("../controllers/order.controller")
 const BusProductController = require("../controllers/product_contollers")
 const validateToken = require("../middleware/ValidateToken");
 const CusProductCon = require("../controllers/user-products-controller")
+const imgUpload = require("../controllers/Image-upload")
 
 const express = require("express")
 const router = express.Router();
@@ -22,5 +23,8 @@ router.get("/view-orders", validateToken, orderController.ViewOrders)
 
 //Business Orders
 router.get("/business/view-orders", validateToken, orderController.ViewBusinessOrders)
+
+//AWS upload
+router.post("/upload-image", imgUpload.UploadImage)
 
 module.exports = router;
