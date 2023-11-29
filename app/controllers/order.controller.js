@@ -65,7 +65,6 @@ exports.SaveOrder = async (req, res) => {
  
       await order.save().then(async() => {
 
-      
       const pro = await Product.find({_id:productId});
 
       const newQuantiy = pro[0].quantity - quantity;
@@ -94,7 +93,7 @@ exports.SaveOrder = async (req, res) => {
             await NewNotification.save();
     }
 
-    return res.status(200).json({ message: 'successful' })
+    return res.status(200).json({ message: 'successful', orderId: NewOrderId })
 
 }
 

@@ -3,6 +3,8 @@
 // const User = db.user
 // const Product = db.product
 
+const Website = require("../models/website")
+
 const imageUploader = require("../controllers/Image-upload")
 
 const Business = require("../models/business")
@@ -162,7 +164,7 @@ exports.findOne = (req, res) =>
 };
 
 
-exports.BusinessProduct = (req,res)=>{
+exports.BusinessProduct = async(req,res)=>{
   const business = req.params.id;
  
   var condition = business ? { business: { $regex: new RegExp(business), $options: "i" } } : {};
@@ -179,6 +181,60 @@ exports.BusinessProduct = (req,res)=>{
     });
 };
   
+exports.CreateWebsite = async (req, res) => {
+
+  const businessId = req.business;
+
+    const business = await Business.findById(businessId);
+
+    if (!business) {
+        return res.status(403).json({ message: 'not found' });
+    }
+
+    const website = await Website.find({business:businessId});
+
+    if (website) {
+        return res.status(400).json({ message: 'website Already exist' });
+    }
+
+    const websiteData = new Website({
+      name: business.name,
+    industry: business.industry,
+    email: business.email,
+    address: business.address,
+    phone: business.phone,
+    about: req.body.about,
+    services: req.body.services,
+    business: business._id
+
+    })
+
+    const SavedWebsite = await websiteData.save();
+    
+    if(SavedWebsite){
+      return res.status(201).json({message:"Saved"});
+    }
+    else{
+      return res.status(201).json({message:"Failed to save"});
+    }
+
+    console.log(business)
+
+
+}
+
+exports.getWebsite = async(req, res) => {
+
+  const website = await Website.find({business:req.params.id});
+
+  if(!website){
+
+    return res.status(404).json({message:"Not found"})
+  }
+
+  return res.status(200).json({message:website})
+
+}
 
 
 
