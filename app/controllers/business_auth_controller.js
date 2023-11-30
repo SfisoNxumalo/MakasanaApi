@@ -42,7 +42,7 @@ exports.signin = (req, res) => {
     const { email, password} = req.body;
 
     if( !email || !password){
-        return res.send(400).json({message: "Missing values"})
+        return res.send(200).json({message: "Missing values"})
     }
 
     Business.findOne({email})
