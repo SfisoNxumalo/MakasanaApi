@@ -78,7 +78,6 @@ app.use(express.json())  // body-parser
 // app.use("/order", orderRouter)
 
 
-
 app.get("/" ,(req ,res) =>{
     res.json({message:"Welcome to makasana application"})
 })
