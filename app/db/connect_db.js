@@ -6,6 +6,7 @@ const connectDB = async () => {
   try
   {
      console.log("Starting connection...")
+     console.log(connectionString)
     const connect = await mongoose.connect(connectionString);
     console.log("Connected to the database ")
   }
