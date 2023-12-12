@@ -6,6 +6,13 @@ const Customer = require("../models/customer");
 
 exports.signup = (req, res) =>
 {
+
+    res.set({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
+    });
+    
     const { name, email, address, phone, password} = req.body;
 
     if(!name || !email || !address || !phone || !password){
