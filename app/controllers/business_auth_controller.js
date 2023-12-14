@@ -59,7 +59,6 @@ exports.signin = (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({message: "Invalid Password!"});
         }
-        console.log(jwt_secretKey)
 
             const token = jwt.sign(
                 { id: user.id },
@@ -82,9 +81,3 @@ exports.signin = (req, res) => {
             res.status(500).send({ message: err.message || "Some error occurred while signing in." });
         });
 };
-
-function mCheckEmailExists(email){
-
-
-
-}
