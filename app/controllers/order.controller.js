@@ -112,7 +112,7 @@ exports.ViewOrders = async(req, res) => {
     const orders = await Order.find({User:customerId})
 
     if(!orders){
-      return res.status(200).json({message: "Invalid"})
+      return res.status(404).json({message: "Order not found"})
     }
   
     res.status(200).json({message: orders});
@@ -121,11 +121,12 @@ exports.ViewOrders = async(req, res) => {
 exports.ViewBusinessOrders = async(req, res) => {
 
   const businessId = req.business;
+  console.log(businessId)
 
   const business = await Business.findById(businessId);
   
     if (!business) {
-      return res.status(401).json({ message: 'not found' });
+      return res.status(401).json({ message: 'Business not found' });
     }
 
     // const category = req.params.category;
@@ -133,7 +134,7 @@ exports.ViewBusinessOrders = async(req, res) => {
     const orders = await Order.find({business:businessId})
 
     if(!orders){
-      return res.status(200).json({message: "Invalid"})
+      return res.status(404).json({message: "Order Not found"})
     }
   
     res.status(200).json({message: orders});

@@ -16,9 +16,12 @@ router.put("/business/update/:id", validateToken, BusProductController.updateOne
 
 router.post("/business/save-web", validateToken, BusProductController.CreateWebsite)
 
+router.get("/products/business/:id", validateToken, CusProductCon.ViewBusinessProducts)
 // User products
 router.get("/products/:category", validateToken, CusProductCon.ViewCateProducts)
-router.get("/products/:category/:id", validateToken,CusProductCon.ViewOneProduct)
+router.get("/products/:category/:id", validateToken, CusProductCon.ViewOneProduct)
+
+
 
 // user orders
 router.post("/createOrder", validateToken, orderController.SaveOrder)

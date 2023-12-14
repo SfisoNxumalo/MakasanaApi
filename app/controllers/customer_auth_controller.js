@@ -1,9 +1,8 @@
-const config = require("../db/auth.config")
-var jwt = require("jsonwebtoken")
-var bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs");
 const Customer = require("../models/customer");
 
-
+const jwt_secretKey = process.env.JWT_SK
 exports.signup = (req, res) =>
 {
 
@@ -30,7 +29,7 @@ exports.signup = (req, res) =>
             });
         
             user.save().then(message => {
-                return res.status(200).json("Account Created");
+                return res.status(200).json({message: "Account Created"});
         
             }).catch(err => {
                 return res.status(300).json(err);
@@ -38,10 +37,11 @@ exports.signup = (req, res) =>
            
         }
         else{
-            return res.status(400).json({message: "Email address already in use"})
+            return res.status(409).json({message: "Email address already in use"})
         }
        })
-    
+
+    //    return res.status(400).json({message: "Email address already in use"})
 };
 
 
@@ -50,7 +50,7 @@ exports.signin = (req, res) => {
     const { email, password} = req.body;
 
     if( !email || !password){
-        return res.send(400).json({message: "Missing values"})
+        return res.send(401).json({message: "Missing values"})
     }
 
     Customer.findOne({email})
@@ -70,8 +70,8 @@ exports.signin = (req, res) => {
 
             const token = jwt.sign(
                 { id: user.id },
-                config.secret,
-                { expiresIn: "5h" } // 24 hours
+                jwt_secretKey,
+                { expiresIn: "3h" } // 24 hours
             );
 
             res.status(200).json({

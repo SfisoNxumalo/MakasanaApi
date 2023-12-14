@@ -18,24 +18,29 @@ exports.ViewCateProducts = async (req, res) => {
       return res.status(200).json({message: "Invalid"})
     }
   
-      res.status(200).json(product);
+    return res.status(200).json(product);
     
   }
 
   exports.ViewOneProduct = async (req, res) => {
-    // const businessId = req.business;
+
     const id = req.params.id;
+
+    // console.log("ll", id)
+
   
-    // const business = await Business.findById(businessId);
+    const customerId = req.business;
   
-    // if (!business) {
-    //   return res.status(404).json({ message: 'not found' });
-    // }
+    const customer = await User.findById(customerId);
   
+    if (!customer) {
+      return res.status(404).json({ message: 'user not found' });
+    }
+
     const product = await Product.findById(id).populate("business");
   
     if(!product){
-      return res.status(200).json({message: "Invalid"})
+      return res.status(404).json({message: "Product not found2"})
     }
   
     // if(product.business._id != businessId){
@@ -44,5 +49,29 @@ exports.ViewCateProducts = async (req, res) => {
     // else{
       return res.status(200).json(product)
     // }
+    
+  }
+
+  exports.ViewBusinessProducts = async (req, res) => {
+       
+    const customerId = req.business;
+ 
+    const customer = await User.findById(customerId);
+  
+    if (!customer) {
+      return res.status(404).json({ message: 'not found' });
+    }
+
+    const businessId = req.params.id;
+    const product = await Product.find({business:businessId})
+
+    if (!product) {
+      return res.status(404).json({ message: 'No products not found'});
+    }
+    else{
+      return res.status(200).send(product);
+    }
+  
+    
     
   }

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const config = require("../db/auth.config")
+const jwt_secretKey = process.env.JWT_SK
 
 const validateToken = (async (req, res, next) =>{
 
@@ -15,7 +15,7 @@ const validateToken = (async (req, res, next) =>{
     if(authHeader && authHeader.startsWith("Bearer")){
         token = authHeader.split(" ")[1];
 
-        jwt.verify(token, config.secret, (error, decoded) => {
+        jwt.verify(token, jwt_secretKey, (error, decoded) => {
             if(error){
                 return res.status(401).json({message:"failed verification"});
             }

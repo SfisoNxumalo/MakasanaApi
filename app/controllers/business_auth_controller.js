@@ -1,4 +1,4 @@
-const config = require("../db/auth.config")
+const jwt_secretKey = process.env.JWT_SK
 const jwt = require("jsonwebtoken")
 var bcrypt = require("bcryptjs");
 const Business = require("../models/business");
@@ -27,11 +27,11 @@ exports.signup = (req, res) =>
             return res.status(201).json({message:"Account Created"});
     
         }).catch(err => {
-            return res.status(300).json(err);
+            return res.status(300).json({message:err});
         })
     }
     else{
-        return res.status(400).json({message: "Email address already in use"})
+        return res.status(409).json({message: "Email address already in use"})
     }
    })
     
@@ -42,7 +42,7 @@ exports.signin = (req, res) => {
     const { email, password} = req.body;
 
     if( !email || !password){
-        return res.send(200).json({message: "Missing values"})
+        return res.send(401).json({message: "Missing values"})
     }
 
     Business.findOne({email})
@@ -59,11 +59,12 @@ exports.signin = (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({message: "Invalid Password!"});
         }
+        console.log(jwt_secretKey)
 
             const token = jwt.sign(
                 { id: user.id },
-                config.secret,
-                { expiresIn: "5h" } // 24 hours
+                jwt_secretKey,
+                { expiresIn: "3h" } // 24 hours
             );
 
             res.status(200).send({
