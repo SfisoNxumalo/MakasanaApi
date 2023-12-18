@@ -74,7 +74,7 @@ exports.ViewMyProducts = async (req, res) => {
 
   const product = await Product.find({business:businessId})
 
-    res.status(200).send(product);
+  res.status(200).send(product);
   
 }
 
@@ -91,7 +91,7 @@ exports.ViewOneProduct = async (req, res) => {
   const product = await Product.findById(id).populate("business");
 
   if(!product){
-    return res.status(404).json({message: "Product not found1"})
+    return res.status(404).json({message: "Product not found"})
   }
 
   if(product.business._id != businessId){
@@ -193,8 +193,9 @@ exports.CreateWebsite = async (req, res) => {
 
     const website = await Website.find({business:businessId});
 
-    if (website) {
-        return res.status(400).json({ message: 'website Already exist' });
+    if (website && website.length != 0) {
+      // console.log()
+        return res.status(403).json({ message: 'website Already exist' });
     }
 
     const websiteData = new Website({
@@ -212,13 +213,11 @@ exports.CreateWebsite = async (req, res) => {
     const SavedWebsite = await websiteData.save();
     
     if(SavedWebsite){
-      return res.status(201).json({message:"Saved"});
+      return res.status(200).json({message:"Saved"});
     }
     else{
-      return res.status(201).json({message:"Failed to save"});
+      return res.status(200).json({message:"Failed to save"});
     }
-
-    console.log(business)
 
 
 }
@@ -227,12 +226,13 @@ exports.getWebsite = async(req, res) => {
 
   const website = await Website.find({business:req.params.id});
 
-  if(!website){
-
-    return res.status(404).json({message:"Not found"})
+  
+  if(!website || website.length == 0){
+console.log(website)
+    return res.status(404).json({message:"Company has no website"})
   }
 
-  return res.status(200).json({message:website})
+  return res.status(200).json({message:website[0]})
 
 }
 
