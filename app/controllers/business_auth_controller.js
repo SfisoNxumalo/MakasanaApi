@@ -63,7 +63,7 @@ exports.signin = (req, res) => {
             const token = jwt.sign(
                 { id: user.id },
                 jwt_secretKey,
-                { expiresIn: "3h" } // 24 hours
+                { expiresIn: "1m" } // 24 hours
             );
 
             res.status(200).send({

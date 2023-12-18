@@ -66,6 +66,8 @@ exports.createProduct = async (req, res) =>
 exports.ViewMyProducts = async (req, res) => {
   const businessId = req.business;
 
+  
+
   const business = await Business.findById(businessId);
 
   if (!business) {
