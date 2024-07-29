@@ -63,12 +63,15 @@ exports.UploadImage = async (fileImage) => {
     })
 
     const s3 = new AWS.S3();
+    console.log(fileImage)
 
     const fileContent = Buffer.from(fileImage.data, "Binary");
 
+    const ImageIdentifier = Date.now()
+
     const params = {
         Bucket: process.env.AWS_BUCKET,
-        Key: fileImage.name,
+        Key: ("MKA-" + ImageIdentifier.toString() + '.' + fileImage.mimetype.split('/')[1]),
         Body: fileContent
     }
 

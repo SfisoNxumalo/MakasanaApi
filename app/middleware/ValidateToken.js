@@ -17,6 +17,7 @@ const validateToken = (async (req, res, next) =>{
 
         jwt.verify(token, jwt_secretKey, (error, decoded) => {
             if(error){
+                console.log(error)
                 return res.status(405).json({message:"failed verification"});
             }
             req.business = decoded.id

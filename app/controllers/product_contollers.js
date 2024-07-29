@@ -17,7 +17,6 @@ exports.GetBusinessProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => 
 {
-  
     const businessId = req.business;
 
     const business = await Business.findById(businessId);

@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload')
 // const productRouter = require("../app/routers/product.route")
 const AllRoutes = require("./routes/routes")
 const AuthRoutes = require("./routes/auth_routes")
+const BusinessRoutes = require('./routes/Business_routes')
 
 // const db = require("./db/db.config");
 const connectDB = require("./db/connect_db");
@@ -29,6 +30,7 @@ app.use(express.json({
 
 app.use("/makasana-api", AllRoutes)
 app.use("/makasana-api/auth", AuthRoutes)
+app.use("/makasana-api", BusinessRoutes)
 
 // app.get("/makasana-api/" ,(req ,res) =>{
 //     res.json({message: req.body})
